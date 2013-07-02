@@ -10,15 +10,30 @@ import java.util.List;
  * Time: 22:58
  * To change this template use File | Settings | File Templates.
  */
-public class Hand {
+public class Player {
 
     private static final int MAX_SCORE = 21;
 
+    private Tactic tactic;
     private String name;
     private List<Card> cards = new ArrayList<Card>();
+    private List<GameResult> gameResults = new ArrayList<GameResult>();
 
-    public Hand(String name){
+    public Player(String name, Tactic tactic){
         this.name = name;
+        this.tactic = tactic;
+    }
+
+    public void clearCards(){
+        cards = new ArrayList<Card>();
+    }
+
+    public void addGameResult(GameResult gameResult){
+        gameResults.add(gameResult);
+    }
+
+    public boolean wantCard(){
+        return tactic.wantCard(getScore());
     }
 
     public void addCard(Card card){
@@ -47,5 +62,9 @@ public class Hand {
 
     public String getName() {
         return name;
+    }
+
+    public List<GameResult> getGameResults() {
+        return gameResults;
     }
 }

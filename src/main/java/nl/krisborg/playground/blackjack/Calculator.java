@@ -12,7 +12,7 @@ import java.util.List;
  */
 public class Calculator {
 
-    private static final int GAMES_PER_RUN = 2000;
+    private static final int GAMES_PER_RUN = 50000;
 
     public void run(){
         List<Tactic> playerTactics = Arrays.asList(
@@ -28,18 +28,22 @@ public class Calculator {
                 new Tactic(20)
         );
 
-        Tactic bankTactic = new Tactic(17);
-
-        for (Tactic playerTactic : playerTactics) {
-            Game game = new Game(playerTactic, bankTactic, false, GAMES_PER_RUN);
-            game.play();
-            game.printResult();
+        for (Tactic tactic : playerTactics) {
+            Player player = new Player("Kris", tactic);
+            for(int i = 0; i < GAMES_PER_RUN; i++){
+                Game game = new Game(player, true);
+                game.play();
+            }
+            System.out.println(tactic.toString() + " - " + StatsUtils.getStats(player.getGameResults()));
         }
-        System.out.println();
-        for (Tactic playerTactic : playerTactics) {
-            Game game = new Game(playerTactic, bankTactic, true, GAMES_PER_RUN);
-            game.play();
-            game.printResult();
+        System.out.println("=======");
+        for (Tactic tactic : playerTactics) {
+            Player player = new Player("Kris", tactic);
+            for(int i = 0; i < GAMES_PER_RUN; i++){
+                Game game = new Game(player, false);
+                game.play();
+            }
+            System.out.println(tactic.toString() + " - " + StatsUtils.getStats(player.getGameResults()));
         }
     }
 

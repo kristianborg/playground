@@ -15,8 +15,8 @@ public class Tactic {
         this.minScore = minScore;
     }
 
-    public boolean stop(Hand hand){
-        return hand.getScore() >= minScore;
+    public boolean wantCard(int score){
+        return score < minScore;
     }
 
     public String toString(){
